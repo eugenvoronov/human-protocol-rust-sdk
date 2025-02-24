@@ -22,14 +22,12 @@ The **StakingClient** empowers actions on staking contracts and retrieves stakin
 
 ## Instalation
 ```bash
-cd human-protocol-sdk
 cargo build
 cargo run
 ```
 
 ## Testing
 ```bash
-cd human-protocol-sdk
 cargo test
 cargo test --doc
 ```
@@ -46,12 +44,12 @@ use crate::constants::{NETWORKS};
 use crate::enums::{ChainId};
 
 fn main() {
-    let network = NETWORKS.get(&ChainId::PolygonMumbai).unwrap();
-    let transport = web3::transports::Http::new("NODE_ENDPOINT").unwrap();
+    let network = NETWORKS.get(&ChainId::PolygonMumbai)?;
+    let transport = web3::transports::Http::new("NODE_ENDPOINT")?;
     let web3 = web3::Web3::new(transport);
-    let account: SecretKey = SecretKey::from_str("PRIVATE_KEY").unwrap();
+    let account: SecretKey = SecretKey::from_str("PRIVATE_KEY")?;
 
-    let escrow_factory_address = Address::from_str(network.factory_address).unwrap();
+    let escrow_factory_address = Address::from_str(network.factory_address)?;
     let token_address = network.hmt_address.to_string();
 
     let escrow_client = EscrowClient::new(&web3, escrow_factory_address, account).await;
@@ -91,14 +89,14 @@ use crate::constants::{NETWORKS};
 use crate::enums::{ChainId};
 
 fn main() {
-    let network = NETWORKS.get(&ChainId::PolygonMumbai).unwrap();
-    let transport = web3::transports::Http::new("NODE_ENDPOINT").unwrap();
+    let network = NETWORKS.get(&ChainId::PolygonMumbai)?;
+    let transport = web3::transports::Http::new("NODE_ENDPOINT")?;
     let web3 = web3::Web3::new(transport);
-    let account: SecretKey = SecretKey::from_str("PRIVATE_KEY").unwrap();
+    let account: SecretKey = SecretKey::from_str("PRIVATE_KEY")?;
 
     let staking_address = network.staking_address.to_string();
     let token_address = network.hmt_address.to_string();
-    let escrow_factory_address = Address::from_str(network.factory_address).unwrap();
+    let escrow_factory_address = Address::from_str(network.factory_address)?;
     let reward_pool_address = network.reward_pool_address.to_string();
    
     let staking_client = StakingClient::new(&web3, staking_address, token_address, escrow_factory_address, reward_pool_address, account).await;
@@ -123,10 +121,10 @@ use crate::constants::{NETWORKS};
 use crate::enums::{ChainId};
 
 fn main() {
-    let network = NETWORKS.get(&ChainId::PolygonMumbai).unwrap();
-    let transport = web3::transports::Http::new("NODE_ENDPOINT").unwrap();
+    let network = NETWORKS.get(&ChainId::PolygonMumbai)?;
+    let transport = web3::transports::Http::new("NODE_ENDPOINT")?;
     let web3 = web3::Web3::new(transport);
-    let account: SecretKey = SecretKey::from_str("PRIVATE_KEY").unwrap();
+    let account: SecretKey = SecretKey::from_str("PRIVATE_KEY")?;
 
     let kvstore_address = network.kvstore_address.to_string();
 
